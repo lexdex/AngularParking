@@ -1,0 +1,70 @@
+h6 {
+    text-align: center;
+}
+
+h3 {
+    text-align: center;
+    margin-bottom: 2%;
+}
+
+.mat-form-field {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+span {
+    color: darkred;
+}
+
+.mat-option {
+    color: darkblue;
+}
+
+mat-select {
+    font-size: 0.9em;
+}
+
+#city {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.pagination {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#spots {
+    color: darkred;
+}
+
+.filter {
+    margin-bottom: 1em;
+    background-color: #4267b2;
+}
+
+.col-md-11 {
+    margin-left: 1.5em;
+}
+
+.btn {
+    display: block;
+    margin: 10px auto 0;
+    color: blue;
+}
+
+p {
+    font-size: 14px;
+    position: relative;
+    text-align: center;
+}
+
+
+
+
+
+
+
+

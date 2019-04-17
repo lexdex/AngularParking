@@ -1,0 +1,90 @@
+h1.app-name {
+    margin-left: 8px;
+}
+
+.nav-list {
+    width: 250px;
+}
+
+.nav-list a {
+    padding: 5px 0;
+}
+
+sup {
+    color: darkred;
+    font-weight: bold;
+}
+
+.content {
+    padding: 0 20px;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.photo-thumbnail {
+    border-radius: 30px;
+    border: 1px solid #ddd;
+    display: inline-block;
+    margin: 1px 1px;
+    vertical-align: middle;
+    width: 48px;
+    height: 48px;
+}
+
+.input-filter {
+    border: 1px solid #4267b2;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-size: 1rem;
+    text-align: center;
+    margin: 10px auto 0;
+    display: block;
+    width: 90%;
+}
+
+:host ::ng-deep .search-highlight {
+    font-weight: bold;
+}
+
+.spinner-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.mat-icon {
+    position: absolute;
+    color: darkred;
+    top: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.parkings-count {
+    text-align: center;
+    font-weight: bold;
+}
+
+.show {
+    text-align: center;
+    color: green;
+    font-weight: bold;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+#mostPopular {
+    color: blue;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 0.5em;
+}
+
+#withoutOrders {
+    text-align: center;
+    font-weight: bold;
+    color: red;
+}
+
+span {
+    display: block;
+}

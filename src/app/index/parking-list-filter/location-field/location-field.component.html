@@ -1,0 +1,34 @@
+<!--<span *ngFor="let city of cities">-->
+<!--{{city}}-->
+<!--</span>-->
+<mat-form-field>
+    <input type="text" placeholder="Location" matInput aria-label="Number"
+           [value]="defaultValue.label"
+           [formControl]="control"
+           [matAutocomplete]="autocomplete">
+    <mat-error *ngIf="control.hasError('locationAutocompleteItemNotSelected')">
+        Location must be selected from <strong>autocomplete</strong>
+    </mat-error>
+    <mat-autocomplete #autocomplete
+                      [autoActiveFirstOption]="true"
+                      [displayWith]="locationAutocompleteDisplayWith">
+        <mat-option *ngFor="let autocompleteItem of predictionItems"
+                    [value]="autocompleteItem">
+            <mat-icon class="mat-18">location_on</mat-icon>
+            {{autocompleteItem.label}}
+        </mat-option>
+        <mat-option *ngIf="defaultValue" [value]="defaultValue">
+            <mat-icon class="mat-18">settings_backup_restore</mat-icon>
+            {{defaultValue.label}}
+        </mat-option>
+        <mat-option *ngIf="geolocationItem" [value]="geolocationItem">
+            <mat-icon class="mat-18">gps_fixed</mat-icon>
+            {{geolocationItem.label}}
+        </mat-option>
+        <mat-option *ngIf="ipLocationItem" [value]="ipLocationItem">
+            <mat-icon class="mat-18">explore</mat-icon>
+            {{ipLocationItem.label}}
+        </mat-option>
+    </mat-autocomplete>
+
+</mat-form-field>

@@ -1,0 +1,16 @@
+.parent {
+    display: table;
+    width: 100%;
+}
+
+mat-form-field {
+    padding: 5px;
+}
+
+.min {
+    display: table-cell;
+}
+
+.max {
+    display: table-cell;
+}

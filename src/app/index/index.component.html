@@ -1,0 +1,23 @@
+<div class="parent">
+    <button class="sidenav-icon" mat-icon-button (click)="drawer.toggle()">
+        <i class="material-icons" style="position: relative;">&#xE896;</i>
+    </button>
+
+    <mat-drawer-container>
+        <mat-drawer #drawer mode="side" [opened]="screenWidth > 800">
+            <app-sidenav></app-sidenav>
+        </mat-drawer>
+        <mat-drawer-content>
+            <app-parking-map #parkingMap></app-parking-map>
+            <div class="filter col-sm-12 col-md-12 col-lg-12">
+                <mat-progress-bar #progressbar *ngIf="progressBarVisible" [color]="progressBarColor"
+                                  [mode]="progressBarMode"
+                                  class="progress-bar" mode="query" [value]="100"></mat-progress-bar>
+                <app-parking-list-filter #filter></app-parking-list-filter>
+                <button mat-raised-button (click)="search()" color="primary" [disabled]="isDisabled()"
+                        style="width: 100%;">Search!
+                </button>
+            </div>
+        </mat-drawer-content>
+    </mat-drawer-container>
+</div>

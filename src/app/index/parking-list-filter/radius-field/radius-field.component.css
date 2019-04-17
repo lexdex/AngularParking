@@ -1,0 +1,15 @@
+.parent {
+    display: table;
+}
+
+.title {
+    display: table-cell;
+    color: rgb(120, 120, 120);
+    padding-left: 6px;
+    min-width: 110px;
+}
+
+.slider {
+    display: table-cell;
+    width: 100%;
+}

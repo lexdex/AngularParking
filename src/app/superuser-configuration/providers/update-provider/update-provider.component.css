@@ -1,0 +1,71 @@
+.card {
+    width: 100%;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.submit-button {
+    margin-top: 20px;
+    width: 100%;
+}
+
+.parking-configure-headers-align .mat-expansion-panel-header-title,
+.parking-configure-headers-align .mat-expansion-panel-header-description {
+    flex-basis: 0;
+}
+
+.parking-configure-headers-align .mat-expansion-panel-header-description {
+    justify-content: space-between;
+    align-items: center;
+}
+
+.full-width {
+    width: 100%;
+}
+
+mat-form-field {
+    padding: 5px;
+}
+
+mat-panel-title {
+    width: 100px;
+}
+
+mat-panel-description {
+    width: 100%;
+    /*height: 25px;*/
+}
+
+.tokenField {
+    width: 290px;
+}
+.radioButtondemoBasicUsage body {
+    padding: 20px; }
+
+.radioButtondemoBasicUsage hr {
+    margin-left: -20px;
+    opacity: 0.3; }
+
+.radioButtondemoBasicUsage md-radio-group {
+    width: 150px; }
+
+.radioButtondemoBasicUsage p:last-child {
+    padding-bottom: 50px; }
+
+.radioButtondemoBasicUsage [ng-controller] {
+    padding: 0 20px; }
+
+.radioButtondemoBasicUsage .radioValue {
+    margin-left: 5px;
+    color: #0f9d58;
+    font-weight: bold;
+    padding: 5px; }
+
+.radioButtondemoBasicUsage md-icon {
+    margin: 0 20px 20px;
+    width: 128px;
+    height: 128px; }
+
+.radioButtondemoBasicUsage .ipsum {
+    color: saddlebrown;
+    font-size: 0.9em; }

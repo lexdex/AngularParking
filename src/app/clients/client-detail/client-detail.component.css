@@ -1,0 +1,32 @@
+span {
+    color: #54456f;
+    font-weight: bold;
+}
+
+#role {
+    color: coral;
+}
+
+#prov {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+#details {
+    color: #039be5;
+}
+
+.photo-thumbnail {
+    position: absolute;
+    top: 7%;
+    right: 3%;
+    border-radius: 30px;
+    border: 1px solid #ddd;
+    vertical-align: middle;
+    width: 8em;
+    height: 8em;
+}
+
+#main-info {
+    float: left;
+}

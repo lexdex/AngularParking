@@ -1,0 +1,19 @@
+<mat-divider style="border-color: purple;"></mat-divider>
+<mat-card class="card">
+    <form [formGroup]="formGroup">
+        <div class="row">
+            <div class="col-md-6">
+                <app-parking-list-filter-location-field #locationField></app-parking-list-filter-location-field>
+            </div>
+            <div class="col-md-5">
+                <app-parking-list-filter-price-range-field #priceRangeField></app-parking-list-filter-price-range-field>
+            </div>
+            <div class="col-md-1">
+                <app-parking-list-filter-favorite-field #favoriteField></app-parking-list-filter-favorite-field>
+                <app-parking-list-filter-charger-field #chargerField></app-parking-list-filter-charger-field>
+
+            </div>
+        </div>
+        <app-parking-list-filter-radius-field #radiusField></app-parking-list-filter-radius-field>
+    </form>
+</mat-card>

@@ -1,0 +1,137 @@
+<div class="container">
+
+    <div class="container-fluid" *ngIf="!parkings" class="text-center">
+        <div class="row mx-auto mt-3 center-block">
+            <div class="col-6 mx-auto my-auto text-center">
+                <mat-spinner mode="indeterminate" style="margin-left: 35%;"></mat-spinner>
+            </div>
+        </div>
+    </div>
+
+    <h3>Parkings statistics</h3>
+
+    <div class="row">
+        <div class="filter offset-1 col-md-10">
+            <mat-divider style="border-color: purple;"></mat-divider>
+            <mat-card class="card">
+                <h6 [(ngModel)]="selectedStreet" [(ngModel)]="selectedCity" ngDefaultControl>Find the most popular
+                    parkings
+                    in <span matTooltip="Click to see the statistic all over the city!" id="city"
+                             (click)="clearCurrentStreetAndFindAllStreets()"
+                             (click)="findBestParkingsInTheCity()">{{selectedCity}}</span> on the
+                    street:
+                    <span
+                            *ngIf="selectedStreet ==''">--not selected--</span><span>{{selectedStreet}}</span> for the
+                    last <span>{{selectedNumberOfDays}}</span> days</h6>
+                <div class="row">
+
+                    <mat-form-field>
+                        <mat-select [(value)]="selectedCity" placeholder="change city">
+                            <mat-option *ngFor="let parkingsCity of parkingsCities" [value]="parkingsCity"
+                                        (click)="clearCurrentStreetAndFindAllStreets()">
+                                {{ parkingsCity }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field class="col-md-3">
+                        <input matInput placeholder="find street" #streetSearchBox
+                               id="street-box" [matAutocomplete]="auto2"
+                               (keyup)=findParkingsStreets(streetSearchBox.value)>
+                        <mat-autocomplete #auto2="matAutocomplete">
+                            <mat-option *ngFor="let parkingsStreet of parkingsStreets"
+                                        (click)="selectTheStreet(parkingsStreet)"
+                                        [value]="parkingsStreet">
+                                {{parkingsStreet}}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-select [(value)]="selectedNumberOfDays" placeholder="for the last days">
+                            <mat-option *ngFor="let day of days" [value]="day">
+                                {{ day }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <mat-divider></mat-divider>
+
+                <button mat-button class="btn btn-outline-primary" (click)="findBestParkings()"
+                        type="submit">
+                    Show statistics
+                </button>
+            </mat-card>
+        </div>
+    </div>
+
+    <p *ngIf="numberOfAllParkings > 0; else noPopularParkings">Was found {{numberOfAllParkings}} parkings</p>
+    <ng-template #noPopularParkings>
+        <p *ngIf="!isLookAroundTheCity; else noParkingsThroughoutTheCity">None of the parkings spots in
+            {{confirmedCity}} on
+            {{confirmedStreet}} str.
+            had no any orders for the last {{confirmedNumberOfDays}} days</p>
+        <ng-template #noParkingsThroughoutTheCity>
+            <p>None of the parkings spots all over {{confirmedCity}} had no any orders for the last
+                {{confirmedNumberOfDays}}
+                days</p>
+        </ng-template>
+    </ng-template>
+    <p *ngIf="numberOfAllParkings > 0 && !isLookAroundTheCity; else bestInAllOverTheCity">The most popular parking in
+        {{confirmedCity}} on the street {{confirmedStreet}} is on
+        {{pagedParkingItems[0].street}}
+        {{pagedParkingItems[0].building}} for the last {{confirmedNumberOfDays}} days</p>
+    <ng-template #bestInAllOverTheCity>
+        <p *ngIf="numberOfAllParkings > 0">The most popular parking all over {{pagedParkingItems[0].city}} is on
+            {{pagedParkingItems[0].street}}
+            {{pagedParkingItems[0].building}} for the last {{confirmedNumberOfDays}} days</p>
+    </ng-template>
+
+    <div class="row">
+        <div class="col-md-11">
+            <ul>
+                <div *ngFor="let parking of pagedParkingItems">
+                    <mat-card class="card offset-sm-1 col-sm-10 offset-md-1 col-md-10 offset-lg-1 col-lg-10">
+                        <mat-card-header>
+                            <div mat-card-avatar class="example-header-image">
+                                <mat-icon>local_parking</mat-icon>
+                            </div>
+                            <div style="min-width: 70%;">
+                                <div>
+                                    <mat-card-title>Parking address: {{parking.city}}, {{parking.street}} street /
+                                        {{parking.building}}
+                                    </mat-card-title>
+                                    <mat-card-subtitle>Provider name: {{parking.providerName}}</mat-card-subtitle>
+                                    <mat-card-subtitle id="spots">Available spots: {{parking.availableSpotsCount}}
+                                    </mat-card-subtitle>
+                                </div>
+                            </div>
+                            <div style="width: 100%"></div>
+                            <mat-icon style="color: #1e7e34">attach_money</mat-icon>
+                            <p style="font-size: 18px;">{{parking.price}}</p>
+                        </mat-card-header>
+
+                        <mat-card-actions class="text-right">
+                            <button mat-button routerLink='parkingdetail/2' color="primary">MORE INFO</button>
+                        </mat-card-actions>
+                    </mat-card>
+                    <hr/>
+                </div>
+                <div class="pagination" *ngIf="numberOfAllParkings>5">
+                    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                        <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
+                            <a class="page-link" (click)="setPage(1)">First</a>
+                        </li>
+                        <li class="page-item" *ngFor="let page of pager.pages"
+                            [ngClass]="{active:pager.currentPage === page}">
+                            <a class="page-link" (click)="setPage(page)">{{page}}</a>
+                        </li>
+                        <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                            <a class="page-link" (click)="setPage(pager.totalPages)">Last</a>
+                        </li>
+                    </ul>
+                </div>
+            </ul>
+        </div>
+    </div>
+</div>

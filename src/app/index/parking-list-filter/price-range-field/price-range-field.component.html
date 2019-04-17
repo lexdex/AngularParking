@@ -1,0 +1,27 @@
+<mat-form-field class="min">
+    <input #minInput matInput type="number" placeholder="Min price" aria-label="Min price" min="0"
+           [formControl]="minControl">
+    <mat-error *ngIf="minControl.hasError('lessThanZero')">
+        Min price can`t be less than zero price
+    </mat-error>
+    <mat-error *ngIf="minControl.hasError('greaterThanMax')">
+        Min price can`t be greater than max price
+    </mat-error>
+    <mat-error *ngIf="minControl.hasError('greaterThan1000')">
+        Min price must be less than 1000
+    </mat-error>
+</mat-form-field>
+<mat-form-field class="max">
+    <input #maxInput matInput type="number" placeholder="Max price" aria-label="Max price" min="0"
+           [formControl]="maxControl">
+    <mat-error *ngIf="maxControl.hasError('lessThanZero')">
+        Max price can`t be less than zero
+    </mat-error>
+    <mat-error *ngIf="maxControl.hasError('lessThanMin')">
+        Max price can`t be less than min price
+    </mat-error>
+    <mat-error *ngIf="maxControl.hasError('greaterThan1000')">
+        Max price must be less than 1000
+    </mat-error>
+</mat-form-field>
+

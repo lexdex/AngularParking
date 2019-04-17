@@ -1,0 +1,66 @@
+<div class="container">
+    <h3 class="text-center">Providers</h3>
+    <div class="row">
+        <div class="col-lg-6">
+            <form class="example-form" [routerLink]="['/configuration/providers']"
+                  [queryParams]="providerFilterForm.getRawValue()" [formGroup]="providerFilterForm"
+                  (ngSubmit)="getProviders()">
+                <div class="input-group">
+                    <input type="text" #searchBox class="form-control" placeholder="search"
+                           maxlength="20" name="searchBox" formControlName="companyName">
+                    <button mat-raised-button color="primary">
+                        search
+                    </button>
+                </div>
+            </form>
+            <mat-form-field>
+                <mat-select #category [formControl]="active" placeholder="Provider states">
+                    <mat-option value="all">All providers</mat-option>
+                    <mat-option value="true">Active providers
+                    </mat-option>
+                    <mat-option value="false">Non active providers</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+    </div>
+    <div class="parent row">
+        <div class="offset-11">
+            <a routerLink="/configuration/provider/add" class="float" mat-fab>
+                <mat-icon color="primary">add</mat-icon>
+            </a>
+        </div>
+        <div class="col-md-12">
+            <ul>
+                <div *ngFor="let provider of providers">
+                    <div id="providerItem">
+                        <mat-card class="card offset-sm-1 col-sm-10 offset-md-1 col-md-10 offset-lg-1 col-lg-10">
+                            <mat-card-header>
+                                <div mat-card-avatar class="example-header-image">
+                                    <mat-icon>local_parking</mat-icon>
+                                </div>
+                                <div style="min-width: 70%;">
+                                    <div>
+                                        <mat-card-title>{{provider.city}}, {{provider.street}} street,
+                                            {{provider.building}}
+                                        </mat-card-title>
+                                        <mat-card-subtitle>{{provider.name}}</mat-card-subtitle>
+                                    </div>
+                                </div>
+                                <div style="width: 100%"></div>
+                            </mat-card-header>
+
+                            <mat-card-actions align="right">
+                                <button mat-button routerLink='{{provider.id}}' color="primary">MORE INFO</button>
+                                <button mat-button routerLink="/configuration/provider/update/{{provider.id}}"
+                                        color="warn">
+                                    EDIT
+                                </button>
+                            </mat-card-actions>
+                        </mat-card>
+                    </div>
+                </div>
+            </ul>
+        </div>
+    </div>
+</div>

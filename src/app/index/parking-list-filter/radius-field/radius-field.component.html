@@ -1,0 +1,8 @@
+<div class="parent">
+    <div class="title">Radius: {{slider.value}} km</div>
+    <div class="slider">
+        <mat-slider style="width: 100%" #slider color="primary" [disabled]="false" [min]="1" [max]="20" [step]="1"
+                    [thumb-label]="true" (change)="onChange()">
+        </mat-slider>
+    </div>
+</div>

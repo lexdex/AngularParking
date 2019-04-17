@@ -1,0 +1,129 @@
+<div class="container">
+<div class="col-xs-12 col-12 col-md-4 form-group">
+    <button mat-raised-button color="primary" (click)="returnToParkingDetail()">Return to parking detail</button>
+</div>
+<h1>Spot statistic of this parking</h1>
+<div class="row">
+        <span *ngIf="error === true">* If you see n/a instead of data, it is means that the device is currently not working correctly in this 
+                parking lot. Please wait until it is repaired. We apologize. Please call technical support</span>
+
+        <div class="col-xs-12 col-12 col-md-4 form-group">
+            <label>Set start data period</label>
+            <input type="text" class="form-control" placeholder="Datepicker" #dp="bsDatepicker" bsDatepicker
+                [(ngModel)]="minDate"   (onHidden)="setMinData()"  >
+        </div>
+    
+        <div class="col-xs-12 col-12 col-md-4 form-group">
+            <label>Set finish data period</label>
+            <input type="text" class="form-control" placeholder="Datepicker" #dp="bsDatepicker" bsDatepicker
+                   [(ngModel)]="maxDate"  (onHidden)="setMaxData()">
+        </div>
+    
+    
+        <div class="col-xs-12 col-12 col-md-4 form-group">
+            <div>
+                <label>Display statistic table of spots</label>
+            </div>
+            <div>
+                <button mat-raised-button color="primary"                      
+                (click)="addItem()" >Display table</button>
+            </div>
+        </div>
+
+
+    <mat-card-header>
+        <div *ngIf="statistic === undefined">
+            <span>There are no statistics for this period of date. Сhoose another period of the date please</span>   
+        </div>
+        <ng-container *ngIf="statistic != undefined">
+                <ng-container *ngIf="statistic.length === 0">
+                        <span>There are no statistics for this period of date. Сhoose another period of the date please</span>   
+                  </ng-container>
+                
+                <ng-container *ngIf="statistic.length != 0">
+        <table class="table table-hover">
+            <thead>
+            <tr class="text-center">
+                <th scope="col">Spot number #</th>
+                <th scope="col">Hours have been taken</th>
+                <th scope="col">Popularity(How many times was busy)</th>
+            </tr>
+            </thead>
+            <tbody>
+                    <tr *ngFor="let spotstatistic of statistic" class="text-center">
+                            <th scope="row">{{spotstatistic.id}}</th> 
+                            <th scope="row"><ion-option [value]="spotstatistic" *ngIf="spotstatistic.numberOfHours < 10000 && spotstatistic.numberOfHours > 0">{{spotstatistic.numberOfHours}}</ion-option>
+                            <ion-option [value]="spotstatistic" *ngIf="spotstatistic.numberOfHours > 10000 || spotstatistic.numberOfHours < 0"> {{setError()}} n/a</ion-option></th>
+                                <th scope="row"><ion-option [value]="spotstatistic" *ngIf="spotstatistic.numberOfEvents > 0">{{spotstatistic.numberOfEvents}}</ion-option>
+                                    <ion-option [value]="spotstatistic" *ngIf="spotstatistic.numberOfEvents === 0"> {{setError()}} n/a </ion-option></th>
+                       </tr>  
+                                   
+                                          
+            </tbody>
+        </table>
+    </ng-container>
+    </ng-container>
+    </mat-card-header>
+
+
+    <ng-container *ngIf="error === false">
+    <div class="row">
+            <table class="table table-hover">
+          <thead>
+                <tr class="text-center">
+                        <th scope="row">
+     <div class="col-xs-12 col-12 col-md-4 form-group">
+        <button mat-raised-button color="primary" 
+              (click)="showHoursGraphic()"
+        [disabled]=" statistic === undefined || statistic.length === 0 || error === true"
+               >Display statistic hour graphic</button>
+    </div>
+    </th>
+    <th scope="row">
+    <div class="col-xs-12 col-12 col-md-4 form-group">
+        <button mat-raised-button color="primary"
+            (click)="showEventsGraphic()"
+        [disabled]="statistic === undefined || statistic.length === 0 || error === true"
+                >Display graphic of popularity spots</button>
+    </div>
+</th>
+    <th scope="row">
+    <div class="col-xs-12 col-12 col-md-4 form-group">
+       
+        <button mat-raised-button color="primary" (click)="clear()"
+        [disabled]="statistic === undefined || statistic.length === 0 "
+         >Clear graphic</button>
+       
+    </div>
+</th>
+</tr>
+</thead>
+</table>
+    </div>
+</ng-container>
+
+</div>
+
+
+<div *ngIf="show === true " >
+   <canvas id="canvas">{{ hoursChart }}</canvas>
+</div>
+
+
+<div *ngIf="show === true" >
+    <canvas id="canvas">{{ eventsChart }}</canvas>
+</div>
+
+<div *ngIf="show === false" >
+    {{setTrue()}}
+</div>
+</div>
+
+
+
+
+
+
+
+  
+

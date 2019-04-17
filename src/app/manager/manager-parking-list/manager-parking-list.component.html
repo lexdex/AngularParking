@@ -1,0 +1,113 @@
+<div class="container">
+    <h3 class="text-center">Parkings</h3>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="input-group">
+                <input type="text" #searchBox class="form-control" placeholder="search"
+                       maxlength="20" name="searchBox">
+                <button mat-raised-button color="primary" (click)="findParkings(searchBox.value)">
+                    search
+                </button>
+            </div>
+            <mat-form-field>
+                <mat-select #category placeholder="Categories" disableRipple>
+                    <mat-option value="1" (click)="findParkings(searchBox.value)">All parkings</mat-option>
+                    <mat-option value="2" (click)="findParkings(searchBox.value)">Parkings whith charger</mat-option>
+                    <mat-option value="3" (click)="findParkings(searchBox.value)">Covered parkings</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+    </div>
+    <div class="container-fluid" *ngIf="!parkings" class="text-center">
+        <div class="row mx-auto mt-3 center-block">
+            <div class="col-6 mx-auto my-auto text-center">
+                <mat-spinner mode="indeterminate" style="margin-left: 35%;"></mat-spinner>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid" *ngIf="parkings">
+        <div *ngFor="let parking of parkings">
+            <mat-card class="card offset-sm-1 col-sm-10 offset-md-1 col-md-10 offset-lg-1 col-lg-10">
+                <mat-card-header>
+                    <div mat-card-avatar class="example-header-image">
+                        <mat-icon>local_parking</mat-icon>
+                    </div>
+                    <div style="min-width: 70%;">
+                        <div>
+                            <mat-card-title>{{parking.city}}, {{parking.street}} street, {{parking.building}}
+                            </mat-card-title>
+                            <mat-card-subtitle>{{parking.providerName}}</mat-card-subtitle>
+                        </div>
+                    </div>
+                    <div style="width: 100%"></div>
+                    <div style="width: 30%" align="center">
+                        <mat-icon style="color: #1e7e34">attach_money</mat-icon>
+                        <span style="font-size: 18px;">{{parking.price}}</span><br>
+                        <span *ngIf="parking.isCovered">Covered</span>
+                        <span *ngIf="!parking.isCovered">Discovered</span><br>
+                        <mat-icon *ngIf="parking.hasCharger" color="primary">ev_station</mat-icon>
+                    </div>
+                </mat-card-header>
+
+                <mat-card-content>
+                    <mat-list>
+                        <mat-list-item>
+                            <div class="col-6">
+                                <mat-icon color="warn" style="margin-right: 15px"
+                                          matTooltip="See location on the map!"
+                                          (click)="showOnMap(parking.latitude, parking.longitude)">place
+                                </mat-icon>
+                                <span> {{parking.latitude}}, {{parking.longitude}}</span></div>
+                        </mat-list-item>
+                        <mat-divider></mat-divider>
+                        <mat-list-item>
+                            <div class="col-6">
+                                <mat-icon color="primary" style="margin-right: 15px">directions_car</mat-icon>
+                                <span> Spots count: {{parking.availableSpotsCount}} / {{parking.spotsCount}} </span>
+                            </div>
+                        </mat-list-item>
+                        <mat-divider></mat-divider>
+                        <mat-list-item>
+                            <div class="col-6">
+                                <mat-icon color="accent" style="margin-right: 15px">star</mat-icon>
+                                <span> {{parking.favoritesCount}} drivers added to favorite</span></div>
+                        </mat-list-item>
+                        <mat-divider></mat-divider>
+                        <mat-list-item>
+                            <div class="col-6">
+                                <mat-icon color="primary" style="margin-right: 15px">&#xE8E5;</mat-icon>
+                                <span> Parking statistic</span>
+                            </div>
+                            <div class="col-6">
+                                <button mat-raised-button color="primary" (click)="showStatistic(parking.id)"
+                                        style="width: 50%">Show statistic
+                                </button>
+                            </div>
+                        </mat-list-item>
+                        <mat-divider></mat-divider>
+                        <mat-list-item>
+                            <div class="col-6">
+                                <mat-icon color="primary" style="margin-right: 15px">local_parking</mat-icon>
+                                <span> Parking spots</span>
+                            </div>
+                            <div class="col-6">
+                                <button mat-raised-button color="primary" (click)="showSpots(parking.id)"
+                                        style="width: 50%">Show spots
+                                </button>
+                            </div>
+                        </mat-list-item>
+                        <mat-divider></mat-divider>
+                    </mat-list>
+                </mat-card-content>
+                <mat-card-actions align="right">
+                    <button mat-button color="primary" (click)="onParkingEditClick(parking.id)">Edit</button>
+                    <button mat-button color="warn" (click)="onParkingDeleteClick(parking)">Delete</button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+        <a routerLink="/manager-configuration/parkings/add" class="float" mat-fab>
+            <mat-icon color="primary">add</mat-icon>
+        </a>
+    </div>
+</div>

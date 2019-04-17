@@ -1,0 +1,31 @@
+<agm-map [latitude]="lat"
+         [longitude]="lng"
+         [fullscreenControl]="true"
+         [zoom]="zoom">
+    <agm-direction *ngIf="dir" [visible]="visibility" [drivingOptions]="dir.drivingOptions"
+                   [travelMode]="dir.travelMode" [origin]="dir.origin"
+                   [destination]="dir.destination">
+    </agm-direction>
+    <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+    <agm-circle [latitude]="lat" [longitude]="lng" [radius]="radius" [fillColor]="'#673ab7'"></agm-circle>
+    <div *ngFor="let parking of parkings">
+        <agm-marker [latitude]="parking.latitude" [longitude]="parking.longitude"
+                    [iconUrl]="parking.markerColor"
+                    (markerClick)="showInfoWindow(parking.id)">
+            <agm-info-window #infoWindow [isOpen]="parking.infoWindowOpen">
+                <ul>
+                    <li><b>Address:</b> {{parking.city}} / {{parking.street}} / {{parking.building}}</li>
+                    <li><b>Distance:</b> {{parking.distance}} km</li>
+                    <li><b>Spots:</b> {{parking.spotsCount}}</li>
+                    <li><b>Spots available:</b> {{parking.availableSpotsCount}}</li>
+                </ul>
+
+                <button mat-button routerLink='/parkingdetail/{{parking.id}}' color="primary">Get details</button>
+                <button mat-button class="btn btn-success" (click)="getDirection(parking.latitude, parking.longitude)">
+                    Start route!
+                </button>
+            </agm-info-window>
+        </agm-marker>
+    </div>
+</agm-map>
+

@@ -1,0 +1,76 @@
+<div class="container-fluid">
+    <mat-card class="card offset-sm-1 col-sm-10 offset-md-1 col-md-10 offset-lg-1 col-lg-10">
+        <mat-card-header>
+            <legend>Add provider</legend>
+        </mat-card-header>
+        <mat-card-content>
+            <form class="formstyle" [formGroup]="providerForm" (ngSubmit)="saveProvider()">
+                <mat-accordion class="parking-configure-headers-align">
+                    <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle="true">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Address
+                            </mat-panel-title>
+                            <mat-icon>store</mat-icon>
+                        </mat-expansion-panel-header>
+                        <mat-form-field>
+                            <input matInput placeholder="City" formControlName="city">
+                            <mat-error *ngIf="cityControl.hasError('required')">
+                                City name is
+                                <strong>required</strong>
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <input matInput placeholder="Street" formControlName="street">
+                            <mat-error *ngIf="streetControl.hasError('required')">
+                                Street name is
+                                <strong>required</strong>
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <input matInput placeholder="Number building" formControlName="building">
+                            <mat-error *ngIf="buildingControl.hasError('required')">
+                                Building number is
+                                <strong>required</strong>
+                            </mat-error>
+                            <mat-error *ngIf="buildingControl.hasError('pattern')&&!buildingControl.hasError('required')">
+                                Wrong style. Example:
+                                <strong>101b</strong>
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-action-row>
+                            <button mat-button type="button" color="warn" (click)="resetAddress()">Reset</button>
+                            <div class="full-width"></div>
+                            <button mat-button type="button" color="primary" (click)="nextStep()">Next</button>
+                        </mat-action-row>
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle="true">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Company name
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <mat-form-field>
+                            <input matInput placeholder="Company name" formControlName="name">
+                            <mat-error *ngIf="nameControl.hasError('required')">
+                                Company name is
+                                <strong>required</strong>
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-action-row>
+                            <button mat-button type="button" color="warn" (click)="resetCompanyName()">Reset</button>
+                            <div class="full-width"></div>
+                            <button mat-button type="button" color="warn" (click)="prevStep()">Previous</button>
+                            <button mat-button type="button" color="primary" (click)="nextStep()">Next</button>
+                        </mat-action-row>
+                    </mat-expansion-panel>
+                </mat-accordion>
+                <button class="submit-button" mat-raised-button type="submit" color="accent" [disabled]="!providerForm.valid">
+                    Submit
+                    <mat-icon aria-label="Send and save changes">send</mat-icon>
+                </button>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>

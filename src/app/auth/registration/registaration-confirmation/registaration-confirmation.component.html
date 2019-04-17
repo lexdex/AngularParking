@@ -1,0 +1,18 @@
+<!-- Waiting -->
+<div class="container-fluid" *ngIf="!isChanging">
+  <div class="row">
+    <div class="col-12 text-center">
+      <h3>Your account is activating, please wait</h3>
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
+  </div>
+</div>
+<!-- Successfully -->
+<div class="container-fluid" *ngIf="isChanging">
+  <div class="row">
+    <div class="col-12 text-center">
+      <img src="https://static.mytaxi.com/images/layout-1/icons/success.svg" alt="Successful">
+      <h3>Your account is activeted successfully! Now you can to sign in.</h3>
+    </div>
+  </div>
+</div>

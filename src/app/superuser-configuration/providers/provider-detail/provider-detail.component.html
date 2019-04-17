@@ -1,0 +1,28 @@
+<div *ngIf="provider">
+    <br/>
+    <br/>
+    <mat-card class="card offset-sm-1 col-sm-10 offset-md-1 col-md-10 offset-lg-1 col-lg-10">
+        <mat-card-header>
+            <div mat-card-avatar class="example-header-image">
+                <mat-icon>local_parking</mat-icon>
+            </div>
+            <div style="min-width: 70%;">
+                <div>
+                    <mat-card-title>Company name: {{provider.name}}
+                    </mat-card-title>
+                    <mat-card-subtitle><span class="subtitleHeader">Address:</span> {{provider.city}}, {{provider.street}} street, {{provider.building}}</mat-card-subtitle>
+                    <mat-card-subtitle><span class="subtitleHeader">Provider id:</span> {{provider.id}}</mat-card-subtitle>
+                    <mat-card-subtitle><span class="subtitleHeader">Provider state:</span> <span *ngIf='provider.active; else elseBlock'><span class="active">Active</span></span>
+                        <ng-template #elseBlock><span class="noActive"> Non active</span></ng-template></mat-card-subtitle>
+                    <mat-card-subtitle><span class="subtitleHeader">Provider parkings:</span> <span *ngFor='let number of provider.parkingIds'> Parking №{{number}} <a
+                            routerLink="/parkingdetail/{{number}}">(Details)</a> </span></mat-card-subtitle>
+                </div>
+            </div>
+            <div style="width: 100%"></div>
+        </mat-card-header>
+
+        <mat-card-actions align="right">
+            <button mat-button routerLink="/configuration/provider/update/{{provider.id}}" color="primary">EDIT</button>
+        </mat-card-actions>
+    </mat-card>
+</div>

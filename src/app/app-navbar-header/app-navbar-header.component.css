@@ -1,0 +1,18 @@
+@import "~bootstrap/dist/css/bootstrap.css";
+a:link { 
+    text-decoration: none; } 
+   a:visited { text-decoration: none; } 
+   a:active { text-decoration: none;}
+   a:hover {
+    text-decoration: none;
+    color: orange;
+    
+ } 
+
+ .example-icon {
+    padding: 0 14px;
+  }
+  
+  .example-spacer {
+    flex: 1 1 auto;
+  }

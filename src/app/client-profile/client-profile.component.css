@@ -1,0 +1,17 @@
+span {
+    color: #54456f;
+    font-weight: bold;
+}
+
+#role {
+    color: coral;
+}
+
+#prov:hover::after {
+    color: #6610f2;
+    content: "go to providers details";
+}
+
+mat-panel-title {
+    width: 100px;
+}

@@ -1,0 +1,22 @@
+.pagination {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.col-lg-6 {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.mat-select {
+    font-size: 14px;
+}
+
+.mat-form-field{
+    text-align: center;
+}
+
+#header {
+    margin-bottom: 1.5%;
+}

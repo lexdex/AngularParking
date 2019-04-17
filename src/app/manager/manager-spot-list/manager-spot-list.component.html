@@ -1,0 +1,99 @@
+<div class="container">
+    <h3 class="text-center">Spots</h3>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="input-group">
+                <input type="text" #searchBox class="form-control" placeholder="search"
+                       maxlength="5" name="searchBox">
+                <button mat-raised-button color="primary" (click)="findSpots(searchBox.value)">
+                    search
+                </button>
+            </div>
+            <mat-form-field>
+                <mat-select #category placeholder="Categories" disableRipple>
+                    <mat-option value="1" (click)="findSpots(searchBox.value)">All spots</mat-option>
+                    <mat-option value="2" (click)="findSpots(searchBox.value)">Spots whith charger</mat-option>
+                    <mat-option value="3" (click)="findSpots(searchBox.value)">Spots for invalid</mat-option>
+                    <mat-option value="4" (click)="findSpots(searchBox.value)">Blocked spots</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+    </div>
+    <div class="container-fluid" *ngIf="!spots" class="text-center">
+        <div class="row mx-auto mt-3 center-block">
+            <div class="col-6 mx-auto my-auto text-center">
+                <mat-spinner mode="indeterminate" style="margin-left: 35%;"></mat-spinner>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid" *ngIf="spots">
+        <div *ngFor="let spot of spots">
+            <mat-card class="card offset-sm-1 col-sm-10 offset-md-1 col-md-10 offset-lg-1 col-lg-10">
+
+                <mat-card-content>
+                    <mat-list>
+                        <mat-list-item class="row mt-4 mb-4">
+                        <span class="col-4"> Spot Number
+                            <span *ngIf="!spot.isFree;else notFree">{{spot.spotNumber}}</span>
+                            <ng-template #notFree>
+                                <form #spotForm>
+                                    <mat-form-field>
+                                        <input matInput [(ngModel)]="spot.spotNumberUpdate" maxlength="5"
+                                               pattern="\d[0-9]{0,4}"
+                                               placeholder="Enter number" required name="spotNumber">
+                                    </mat-form-field>
+                                </form>
+                            </ng-template>
+                        </span>
+                            <div class="col-6">
+                                <div class="row align-items-center">
+                                    <div class="col-4">
+                                        <span *ngIf="(spot.isBlocked || spot.hasCharger || spot.isInvalid || spot.isFree)">Available services</span>
+                                    </div>
+                                    <div class="col-8">
+                                        <div *ngIf="spot.hasCharger || spot.isFree">
+                                            <input *ngIf="spot.isFree" type="checkbox"
+                                                   [(ngModel)]="spot.hasChargerUpdate">
+                                            <mat-icon color="primary">ev_station</mat-icon>
+                                            <label> Has charger</label>
+                                        </div>
+                                        <div *ngIf="spot.isInvalid || spot.isFree">
+                                            <input *ngIf="spot.isFree" type="checkbox"
+                                                   [(ngModel)]="spot.isInvalidUpdate">
+                                            <mat-icon color="primary">accessible</mat-icon>
+                                            <label> Is accessible</label>
+                                        </div>
+                                        <div *ngIf="spot.isBlocked || spot.isFree">
+                                            <input *ngIf="spot.isFree" type="checkbox"
+                                                   [(ngModel)]="spot.isBlockedUpdate">
+                                            <mat-icon color="primary">lock_outline</mat-icon>
+                                            <label> Is blocked</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="full-width"></div>
+                            <div class="col-2" align="right">
+                                <div *ngIf="!spot.isFree;else editButtons">
+                                    <button mat-button color="primary" (click)="onSpotEditClick(spot)">Edit</button>
+                                    <button mat-button color="warn" (click)="onSpotDeleteClick(spot)">Delete</button>
+                                </div>
+                                <ng-template #editButtons>
+                                    <button mat-button color="primary" (click)="onSpotCancelEditClick(spot)">Cancel
+                                    </button>
+                                    <button mat-button color="primary" (click)="onSpotUpdateClick(spot)">Update</button>
+                                </ng-template>
+                            </div>
+                        </mat-list-item>
+                    </mat-list>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <button mat-icon-button (click)="onSpotAddClick()" class="float" mat-fab>
+            <mat-icon color="primary">add</mat-icon>
+        </button>
+    </div>
+</div>

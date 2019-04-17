@@ -1,0 +1,25 @@
+<div id="clientItem">
+    <mat-card class="card offset-sm-1 col-sm-10 offset-md-1 col-md-10 offset-lg-1 col-lg-10">
+        <mat-card-header>
+            <div style="min-width: 70%;">
+                <div>
+                    <mat-card-title>{{client.firstName}} {{client.lastName}}
+                    </mat-card-title>
+                    <mat-card-subtitle
+                            [ngStyle]="{'color': client.role === 'SUPERUSER' ? 'orange' : 'green'}">
+                        {{client.role}}
+                    </mat-card-subtitle>
+                    <mat-card-subtitle>{{client.email}}</mat-card-subtitle>
+                </div>
+            </div>
+            <div style="width: 100%"></div>
+        </mat-card-header>
+
+        <mat-card-actions class="text-right" id="buttons">
+            <button mat-button routerLink='{{client.id}}' color="primary">MORE INFO</button>
+            <button mat-button routerLink='edit/{{client.id}}' color="warn">
+                EDIT
+            </button>
+        </mat-card-actions>
+    </mat-card>
+</div>

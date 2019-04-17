@@ -1,0 +1,62 @@
+<div *ngIf="parkings">
+
+    <span class="parkings-count"
+          *ngIf="parkings.length>0;else noParkings">Was found {{parkings.length}} parkings</span>
+    <ng-template #noParkings>
+        <span class="text-center" style="color: red">No parkings were found!</span>
+    </ng-template>
+
+    <span id="withoutOrders" *ngIf="showMostPopular && (parkings.length - mostPopularParkings.length)>0">
+        {{parkings.length - mostPopularParkings.length}} parkings are empty</span>
+
+    <span class="show" *ngIf="!showMostPopular && parkings.length>0;else showParkings"
+          (click)="showMostPopularParkings()">Show most popular</span>
+    <ng-template #showParkings>
+        <span class="show" *ngIf="parkings.length>0" (click)="showAllParkings()">Show all parkings</span>
+    </ng-template>
+
+    <input class="input-filter" type="text" [(ngModel)]="streetFilter" placeholder="search">
+    <span id="mostPopular" *ngIf="showMostPopular">Most popular</span>
+
+    <div *ngIf="!showMostPopular; else showMostPopularParkingsInSideBar">
+        <mat-nav-list class="nav-list" *ngFor="let item of parkings">
+            <ng-container>
+                <a mat-list-item *ngIf="item.street.toLowerCase().includes(streetFilter.toLowerCase())"
+                   (click)="highlightOnMap(item.id)">
+
+                    <tr>
+                        <th rowspan="2"><img class="photo-thumbnail"
+                                             src='assets/images/parking-list-icon.jpg'>
+                        </th>
+                        <td>{{item.street}} {{item.building}}</td>
+                    </tr>
+                    <tr>
+                        <td><sup>{{item.availableSpotsCount}} available spots</sup></td>
+                    </tr>
+
+                </a>
+            </ng-container>
+        </mat-nav-list>
+    </div>
+
+    <ng-template #showMostPopularParkingsInSideBar>
+        <mat-nav-list class="nav-list" *ngFor="let item of mostPopularParkings">
+            <ng-container>
+                <a mat-list-item *ngIf="item.street.toLowerCase().includes(streetFilter.toLowerCase())"
+                   (click)="highlightOnMap(item.id)">
+
+                    <tr>
+                        <th rowspan="2"><img class="photo-thumbnail"
+                                             src='assets/images/parking-list-icon.jpg'>
+                        </th>
+                        <td>{{item.street}} {{item.building}}</td>
+                    </tr>
+                    <tr>
+                        <td><sup>{{item.availableSpotsCount}} free spots</sup></td>
+                    </tr>
+
+                </a>
+            </ng-container>
+        </mat-nav-list>
+    </ng-template>
+</div>

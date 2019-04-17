@@ -1,0 +1,67 @@
+<div class="container">
+    <div class="container-fluid container-style" *ngIf="client">
+        <form novalidate #clientForm="ngForm"
+              class="formstyle offset-sm-1 col-sm-10 offset-md-2 col-md-8 offset-lg-3 col-lg-6">
+            <h3 class="heading row offset-4">Cliet Edit Form</h3>
+
+            <div class="row">
+                <input type="text" name="firstName" [(ngModel)]="client.firstName" class="form-control" required
+                       minlength="3" placeholder="First Name">
+            </div>
+
+            <div class="row">
+                <input type="text" name="lastName" [(ngModel)]="client.lastName" class="form-control" required
+                       minlength="3" placeholder="Last Name">
+            </div>
+
+            <div class="row">
+                <input type="email" name="email" [(ngModel)]="client.email" class="form-control" readonly>
+            </div>
+
+            <div class="row"
+                 *ngIf="client.providerName!=null && currentProviderManager!=null && currentClientRole!='SUPERUSER' && currentClientRole!='DRIVER'">
+                <h6>Current provider: {{currentProviderManager}}</h6>
+            </div>
+
+            <div class="row" id="role">
+                <h6>Current role: <span
+                        [ngStyle]="{'color': client.role === 'SUPERUSER' ? 'Chocolate' : 'BlueViolet '}">{{currentClientRole}}</span>
+                </h6>
+            </div>
+
+            <mat-form-field>
+                <mat-select [(value)]="client.role" placeholder="select role">
+                    <mat-option *ngFor="let role of roles" [value]="role.name">
+                        {{ role.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field *ngIf="client.role=='PROVIDER_MANAGER'">
+                <mat-select [(value)]="client.providersId" placeholder="select provider">
+                    <mat-option *ngFor="let provider of providers" [value]="provider.id"
+                                (click)="updateProviderName(provider.name)">
+                        {{ provider.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <div class="row offset-5 submit">
+                <button mat-button class="btn btn-outline-primary"
+                        type="submit"
+                        [disabled]="!clientForm.valid"
+                        (click)="updateClientById()">
+                    Save
+                </button>
+            </div>
+            <a id="aBack" routerLink (click)="goToClientList()">(Go to clients list)</a>
+        </form>
+    </div>
+</div>
+
+
+
+
+
+
+

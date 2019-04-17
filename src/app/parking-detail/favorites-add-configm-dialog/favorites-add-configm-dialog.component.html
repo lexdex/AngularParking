@@ -1,0 +1,12 @@
+<div class="container">
+    <h1 mat-dialog-title style="text-align: center">Enter the name for favorite parking?</h1>
+    <mat-form-field>
+        <input matInput [(ngModel)]="data.name" placeholder="Enter name">
+    </mat-form-field>
+    <div mat-dialog-actions>
+        <button mat-button (click)="onNoClick()" [mat-dialog-close]="data">Cancel</button>
+        <button mat-button color="primary" (click)="onOkClick()" [mat-dialog-close]="data"
+                cdkFocusInitial [disabled]="data.name.length >= 25">Add
+        </button>
+    </div>
+</div>

@@ -1,0 +1,83 @@
+<div class="container">
+    <div class="container-fluid" *ngIf="!client" class="text-center">
+        <div class="row mx-auto mt-3 center-block">
+            <div class="col-6 mx-auto my-auto text-center">
+                <mat-spinner mode="indeterminate" style="margin-left: 35%;"></mat-spinner>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="client">
+        <br/>
+        <mat-card class="card offset-sm-1 col-sm-10 offset-md-1 col-md-10 offset-lg-1 col-lg-10">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-4" *ngIf="client.image">
+                        <img data-src="data:image/JPEG;base64,{{client.image}}" style="width: 200px; height:200px;"
+                             class="rounded-circle">
+                    </div>
+                    <div class="col-8">
+                        <div style="min-width: 70%;">
+                            <div>
+                                <mat-card-title id="role"><span>Role:</span> {{client.role}}
+                                </mat-card-title>
+                                <mat-card-title><span>Your name:</span> {{client.firstName}} {{client.lastName}}
+                                </mat-card-title>
+                                <mat-card-title><span>Email:</span> {{client.email}}</mat-card-title>
+                                <mat-card-title *ngIf="favoritesParkings.length!=0">
+                                    <mat-expansion-panel hideToggle="true">
+                                        <mat-expansion-panel-header>
+                                            <mat-panel-title>
+                                                <span>Show favorite parkings</span>
+                                            </mat-panel-title>
+
+                                        </mat-expansion-panel-header>
+                                        <div *ngFor="let favoriteParking of favoritesParkings">
+                                            <div class="row">
+                                                <div class="col-10"
+                                                     [routerLink]="['/parkingdetail/'+favoriteParking.id]">
+                                                    <!--<button mat-button (click)="goToParkingDetails()">-->
+                                                    <div class="row">
+                                                        <mat-panel-title>
+                                                            Name
+                                                        </mat-panel-title>
+                                                        <mat-panel-description>
+                                                            {{favoriteParking.favoriteName}}
+                                                        </mat-panel-description>
+                                                    </div>
+                                                    <div class="row">
+                                                        <mat-panel-title>
+                                                            Address
+                                                        </mat-panel-title>
+                                                        <mat-panel-description>
+                                                            {{favoriteParking.address}}
+                                                        </mat-panel-description>
+                                                    </div>
+                                                </div>
+                                                <div class="col-2">
+                                                    <button mat-icon-button color="warn"
+                                                            (click)="onParkingDeleteClick(favoriteParking)">
+                                                        <mat-icon>delete_forever</mat-icon>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <mat-action-row></mat-action-row>
+                                        </div>
+
+                                    </mat-expansion-panel>
+                                </mat-card-title>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <mat-action-row>
+                    <div class="full-width"></div>
+                    <button mat-button (click)="goToProfileEdit()" color="warn">Edit</button>
+                </mat-action-row>
+            </div>
+        </mat-card>
+    </div>
+</div>
+
+
+
+

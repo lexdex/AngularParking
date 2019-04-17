@@ -1,0 +1,55 @@
+<div class="container">
+
+    <div class="container-fluid" *ngIf="!clients" class="text-center">
+        <div class="row mx-auto mt-3 center-block">
+            <div class="col-6 mx-auto my-auto text-center">
+                <mat-spinner mode="indeterminate" style="margin-left: 35%;"></mat-spinner>
+            </div>
+        </div>
+    </div>
+
+    <h3 class="text-center" id="header">Clients</h3>
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="input-group">
+                <input type="text" #searchBox class="form-control" placeholder="search"
+                       maxlength="20" name="searchBox"
+                       (keyup.enter)="findClientsFromBackEnd(searchBox.value)">
+                <button mat-raised-button color="primary" (click)="findClientsFromBackEnd(searchBox.value)">
+                    search
+                </button>
+            </div>
+            <mat-form-field>
+                <mat-select placeholder="Find by roles" disableRipple>
+                    <mat-option value="1" (click)="findAllClients()">Show all clients</mat-option>
+                    <mat-option value="2" (click)="findDrivers()">Find drivers</mat-option>
+                    <mat-option value="3" (click)="findProviderManagers()">Find managers</mat-option>
+                    <mat-option value="4" (click)="findSuperusers()">Find superusers</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <app-client-item *ngFor="let client of pagedClientItems"
+                         [client]="client">
+        </app-client-item>
+    </div>
+
+    <div class="pagination" *ngIf="allClients>=6">
+        <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+            <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
+                <a class="page-link" (click)="setPage(1)">First</a>
+            </li>
+            <li class="page-item" *ngFor="let page of pager.pages"
+                [ngClass]="{active:pager.currentPage === page}">
+                <a class="page-link" (click)="setPage(page)">{{page}}</a>
+            </li>
+            <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                <a class="page-link" (click)="setPage(pager.totalPages)">Last</a>
+            </li>
+        </ul>
+    </div>
+
+</div>

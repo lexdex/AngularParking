@@ -1,0 +1,16 @@
+.banButton{
+    color: red;
+}
+
+.active {
+    color: green;
+}
+
+.noActive {
+    color: red;
+}
+
+.subtitleHeader {
+    color: #54456f;
+}
+
